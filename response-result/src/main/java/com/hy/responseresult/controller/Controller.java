@@ -2,7 +2,9 @@ package com.hy.responseresult.controller;
 
 import com.hy.responseresult.annotation.JsonResult;
 import com.hy.responseresult.eneity.People;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,15 +28,13 @@ public class Controller {
     @GetMapping("/say")
     public People say() {
         String str = "xiaoming";
-        People people = new People(str, 1);
-        return people;
+        return new People(str, 1);
     }
 
     @JsonResult
     @RequestMapping("/sayString")
     public String sayString() {
-        String str = "Hello world!";
-        return str;
+        return "Hello world!";
     }
 
     @JsonResult

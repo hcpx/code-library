@@ -25,39 +25,38 @@ public class ResponseResult<T> implements Serializable {
         this.data = data;
     }
 
-    public static ResponseResult success() {
-
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> success() {
+        ResponseResult<T> result = new ResponseResult<>();
         result.setCode(ResultCode.SUCCESS.getCode());
         result.setMessage(ResultCode.SUCCESS.getMessage());
         return result;
     }
 
-    public static <T> ResponseResult success(T data) {
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> success(T data) {
+        ResponseResult<T> result = new ResponseResult<>();
         result.setCode(ResultCode.SUCCESS.getCode());
         result.setMessage(ResultCode.SUCCESS.getMessage());
         result.setData(data);
         return result;
     }
 
-    public static ResponseResult failure(ResultCode resultCode) {
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> failure(ResultCode resultCode) {
+        ResponseResult<T> result = new ResponseResult<>();
         result.setCode(resultCode.getCode());
         result.setMessage(resultCode.getMessage());
         return result;
     }
 
-    public static <T> ResponseResult failure(ResultCode resultCode, T data) {
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> failure(ResultCode resultCode, T data) {
+        ResponseResult<T> result = new ResponseResult<>();
         result.setCode(resultCode.getCode());
         result.setMessage(resultCode.getMessage());
         result.setData(data);
         return result;
     }
 
-    public static ResponseResult failure(APIException apiException) {
-        ResponseResult result = new ResponseResult();
+    public static <T> ResponseResult<T> failure(APIException apiException) {
+        ResponseResult<T> result = new ResponseResult<>();
         result.setCode(apiException.getResultCode().getCode());
         result.setMessage(apiException.getMessage());
         return result;

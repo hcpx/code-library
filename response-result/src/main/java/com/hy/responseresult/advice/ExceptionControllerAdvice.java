@@ -3,7 +3,6 @@ package com.hy.responseresult.advice;
 import com.hy.responseresult.exception.APIException;
 import com.hy.responseresult.response.ResponseResult;
 import com.hy.responseresult.response.ResultCode;
-import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,10 +17,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  */
 @RestControllerAdvice
 @Slf4j
-public class ExceptionControllerAdvice {
+public class ExceptionControllerAdvice<T> {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseResult MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    public ResponseResult<String> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         // 从异常对象中拿到ObjectError对象
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
         // 然后提取错误提示信息进行返回
@@ -29,17 +28,17 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler(APIException.class)
-    public ResponseResult APIExceptionHandler(APIException apiException) {
+    public ResponseResult<String> APIExceptionHandler(APIException apiException) {
         return ResponseResult.failure(apiException);
     }
 
     @ExceptionHandler(Throwable.class)
-    public ResponseResult handlerException(Exception e) {
+    public ResponseResult<String> handlerException(Exception e) {
         if (e instanceof NoHandlerFoundException) {
             return ResponseResult.failure(ResultCode.NOT_FOUND);
-        }else {
-            log.error("统一异常处理:",e);
-            return ResponseResult.failure(ResultCode.BACKGROUND_ERROR,e.getMessage());
+        } else {
+            log.error("统一异常处理:", e);
+            return ResponseResult.failure(ResultCode.BACKGROUND_ERROR, e.getMessage());
         }
     }
 }
