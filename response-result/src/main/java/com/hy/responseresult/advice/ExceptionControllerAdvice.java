@@ -32,7 +32,7 @@ public class ExceptionControllerAdvice {
         return ResponseResult.failure(apiException);
     }
 
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(Exception.class)
     public ResponseResult<String> handlerException(Exception e) {
         if (e instanceof NoHandlerFoundException) {
             return ResponseResult.failure(ResultCode.NOT_FOUND);

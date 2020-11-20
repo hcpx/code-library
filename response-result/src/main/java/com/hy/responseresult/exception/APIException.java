@@ -10,8 +10,8 @@ import lombok.Getter;
  */
 @Getter
 public class APIException extends RuntimeException {
-    private ResultCode resultCode;
-    private String msg;
+    private final ResultCode resultCode;
+    private final String msg;
 
     public APIException(ResultCode resultCode, String msg) {
         super(msg);

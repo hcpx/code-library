@@ -26,10 +26,9 @@ public class ResponseResultInterceptor extends HandlerInterceptorAdapter {
             final Method method = handlerMethod.getMethod();
             if (beanType.isAnnotationPresent(RestController.class) || method.isAnnotationPresent(ResponseBody.class)) {
                 request.setAttribute(WebConstant.RESPONSE_RESULT_JSON, WebConstant.RESPONSE_RESULT_JSON);
-                return true;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
