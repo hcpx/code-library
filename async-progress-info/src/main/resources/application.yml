@@ -1,0 +1,15 @@
+# 应用名称
+spring:
+  application:
+    name: async-progress-info
+  redis:
+    database: 0
+    port: 6379
+    host: 192.168.31.140
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+    expire: 21600
