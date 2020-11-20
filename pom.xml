@@ -21,6 +21,7 @@
         <module>code-common</module>
         <module>async-progress-info</module>
         <module>redis-lazy</module>
+        <module>response-result</module>
     </modules>
 
     <dependencyManagement>

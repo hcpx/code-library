@@ -30,7 +30,6 @@ public class ObjectMapperConfig {
      * 但不要更改配置, 需要更改配置使用建议new一个或者SerializationUtils.clone(objectMapper)克隆一个
      */
     @Bean
-    @Primary
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE));
@@ -68,14 +67,12 @@ public class ObjectMapperConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer customizer() {
-        return o -> {
-            o.serializerByType(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
-                @Override
-                public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                    gen.writeString(value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        return o -> o.serializerByType(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+            @Override
+            public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                gen.writeString(value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-                }
-            });
-        };
+            }
+        });
     }
 }
