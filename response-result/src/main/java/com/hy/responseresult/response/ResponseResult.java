@@ -55,6 +55,14 @@ public class ResponseResult<T> implements Serializable {
         return result;
     }
 
+    public static <T> ResponseResult<T> failure(int resultCode, T data) {
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(resultCode);
+        result.setMessage(ResultCode.byCode(resultCode).getMessage());
+        result.setData(data);
+        return result;
+    }
+
     public static <T> ResponseResult<T> failure(APIException apiException) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setCode(apiException.getResultCode().getCode());
