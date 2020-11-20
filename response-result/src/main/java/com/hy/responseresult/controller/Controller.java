@@ -1,6 +1,8 @@
 package com.hy.responseresult.controller;
 
 import com.hy.responseresult.eneity.People;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 
+@Api(tags = "测试")
 @RestController
 @RequestMapping("/myPath")
 public class Controller {
 
+    @ApiOperation("sss")
     @GetMapping("/sayHello")
     public Map<String, String> syaHello() {
         Map<String, String> map = new HashMap<>();
