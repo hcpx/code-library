@@ -17,7 +17,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  */
 @RestControllerAdvice
 @Slf4j
-public class ExceptionControllerAdvice<T> {
+public class ExceptionControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseResult<String> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {

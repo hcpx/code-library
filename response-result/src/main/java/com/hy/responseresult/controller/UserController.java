@@ -1,6 +1,5 @@
 package com.hy.responseresult.controller;
 
-import com.hy.responseresult.annotation.JsonResult;
 import com.hy.responseresult.eneity.User;
 import com.hy.responseresult.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("user")
 @RequiredArgsConstructor
-@JsonResult
 public class UserController {
     private final UserService userService;
 

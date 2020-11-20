@@ -1,9 +1,10 @@
 package com.hy.responseresult.Intercepter;
 
-import com.hy.responseresult.annotation.JsonResult;
 import com.hy.responseresult.config.WebConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,20 +20,16 @@ public class ResponseResultInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        boolean result = false;
         if (handler instanceof HandlerMethod) {
             final HandlerMethod handlerMethod = (HandlerMethod) handler;
             final Class<?> beanType = handlerMethod.getBeanType();
             final Method method = handlerMethod.getMethod();
-            if (beanType.isAnnotationPresent(JsonResult.class)) {
-                request.setAttribute(WebConstant.RESPONSE_RESULT_JSON, beanType.getAnnotation(JsonResult.class));
-                result = true;
-            } else if (method.isAnnotationPresent(JsonResult.class)) {
-                request.setAttribute(WebConstant.RESPONSE_RESULT_JSON, method.getAnnotation(JsonResult.class));
-                result = true;
+            if (beanType.isAnnotationPresent(RestController.class) || method.isAnnotationPresent(ResponseBody.class)) {
+                request.setAttribute(WebConstant.RESPONSE_RESULT_JSON, WebConstant.RESPONSE_RESULT_JSON);
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
     @Override

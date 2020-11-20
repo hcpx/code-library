@@ -1,7 +1,6 @@
 package com.hy.responseresult.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hy.responseresult.annotation.JsonResult;
 import com.hy.responseresult.config.WebConstant;
 import com.hy.responseresult.response.ResponseResult;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert sra != null;
         HttpServletRequest request = sra.getRequest();
-        JsonResult attribute = (JsonResult) request.getAttribute(WebConstant.RESPONSE_RESULT_JSON);
+        Object attribute = request.getAttribute(WebConstant.RESPONSE_RESULT_JSON);
         return (attribute != null) && !methodParameter.getParameterType().equals(ResponseResult.class);
     }
 
