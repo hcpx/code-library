@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.hy.responseresult.controller")
 @RequiredArgsConstructor
 @Slf4j
 public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
