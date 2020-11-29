@@ -22,6 +22,7 @@
         <module>async-progress-info</module>
         <module>redis-lazy</module>
         <module>response-result</module>
+        <module>security</module>
     </modules>
 
     <dependencyManagement>
