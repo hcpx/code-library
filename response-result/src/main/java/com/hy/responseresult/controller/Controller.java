@@ -32,7 +32,7 @@ public class Controller {
         return new People(str, 1);
     }
 
-    @RequestMapping("/sayString")
+    @GetMapping("/sayString")
     public String sayString() {
         return "Hello world!";
     }
