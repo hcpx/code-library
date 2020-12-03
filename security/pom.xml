@@ -18,6 +18,7 @@
         <module>security-springmvc</module>
         <module>security-spring-security</module>
         <module>security-spring-boot</module>
+        <module>security-spring-boot-jwt</module>
     </modules>
 
 
