@@ -52,9 +52,9 @@ public class AsyncManagerService {
                 int start;
                 int end;
 
-                int count = total / batchSize;
+                int count = total % batchSize == 0 ? total / batchSize : total / batchSize + 1;
 
-                for (int i = 0; i <= count; i++) {
+                for (int i = 0; i < count; i++) {
                     start = i * batchSize;
                     end = start + batchSize;
 
