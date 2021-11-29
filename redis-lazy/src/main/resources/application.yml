@@ -4,8 +4,8 @@ spring:
     name: redis-lazy
   redis:
     database: 0
-    port: 6379
-    host: 192.168.31.140
+    port: 6579
+    host: 127.0.0.1
     pool:
       max-active: 8
       max-wait: -1
