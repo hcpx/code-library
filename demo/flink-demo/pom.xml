@@ -45,7 +45,7 @@
       <artifactId>flink-table-planner-blink_2.12</artifactId>
       <version>${flink.version}</version>
       <!--    flink 服务器的lib下如果有这些包那么用provided即可-->
-      <scope>provided</scope>
+<!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.flink</groupId>

@@ -1,7 +1,5 @@
 package com.hy.flink.streaming.window;
 
-import java.io.Serializable;
-import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +12,12 @@ import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.ProcessFunction;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
-import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;
+
+import java.io.Serializable;
+import java.time.Duration;
 
 /**
  * @author hy
@@ -30,6 +29,10 @@ public class WaterMarkWindowDemo {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
         environment.setParallelism(1);
+        //重启策略当发生异常后自动重启防止数据的丢失
+//        environment.setRestartStrategy();
+        //状态后端的存储模式
+//        environment.setStateBackend();
         //watermark 自动提交时间
 //      environment.getConfig().setAutoWatermarkInterval(10 * 1000);
         final ParameterTool parameterTool = ParameterTool.fromArgs(args);
@@ -37,7 +40,8 @@ public class WaterMarkWindowDemo {
         final int port = parameterTool.getInt("port");
 
         //侧输出流，如果延迟时间以及延迟计算都不能满足要求那么就会到侧输出流
-        final OutputTag<Demo> outputStreamOutPutTag = new OutputTag<Demo>("lateDate"){};
+        final OutputTag<Demo> outputStreamOutPutTag = new OutputTag<Demo>("lateDate") {
+        };
 
         final DataStreamSource<String> inputDataStream = environment.socketTextStream(host, port);
         //水位线本来是10 现在要推高到12才会执行，之后在22之前请求10内的数据都会重新计算

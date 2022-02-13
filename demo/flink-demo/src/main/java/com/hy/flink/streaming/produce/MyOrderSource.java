@@ -1,11 +1,12 @@
 package com.hy.flink.streaming.produce;
 
 import com.hy.flink.streaming.bean.Order;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 /**
  * @author hy
@@ -35,7 +36,7 @@ public class MyOrderSource implements SourceFunction<Order> {
             order.setTimestamp(System.currentTimeMillis());
             //发送对象
             ctx.collect(order);
-            log.info("source order:{}",order);
+//            log.info("source order:{}",order);
             Thread.sleep(1000);
         }
     }

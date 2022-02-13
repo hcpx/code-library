@@ -2,6 +2,7 @@ package com.hy.flink.streaming.table;
 
 import com.hy.flink.streaming.bean.Order;
 import lombok.SneakyThrows;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -16,16 +17,19 @@ import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @author hy
- * @date 2022/2/12 5:54 下午
- * @description
- */
-public class TableDemo {
+import static org.apache.flink.table.api.Expressions.$;
 
+/**
+ * @Author hy
+ * @Date 2022-02-13 19:19:43
+ * @Description
+ */
+public class TableWaterMark {
     @SneakyThrows
     public static void main(String[] args) {
         final StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -47,28 +51,15 @@ public class TableDemo {
                             .map((MapFunction<String, Order>) value -> {
                                 final String[] split = value.split(",");
                                 return new Order(split[0], Double.parseDouble(split[1]), split[2], Long.parseLong(split[3]));
-                            });
-                    final Table stockTable = tableEnv.fromDataStream(stockStream);
+                            }).assignTimestampsAndWatermarks(WatermarkStrategy.<Order>forBoundedOutOfOrderness(Duration.ofMillis(2))
+                                    .withTimestampAssigner((Order element, long recordTimestamp) -> element.getTimestamp()));
 
-                    //是否覆盖  toRetractStream 是，数据结果中前边boolean true未覆盖 false覆盖
-                    //         toAppendStream  否，仅叠加
-                    //方式1
-//                    final Table table = stockTable.groupBy($("id"), $("orderType"))
-//                            .select($("id"), $("orderType"), $("price").avg().as("priceavg"))
-//                            .where($("orderType").isEqual("UDFOrder"));
-//                    final DataStream<Tuple2<Boolean, Tuple3<String, String, Double>>> sqlDataStream = tableEnv.toRetractStream(table, TypeInformation.of(new TypeHint<Tuple3<String, String, Double>>() {
-//                    }));
-//                    sqlDataStream.print("sql");
-                    //转换成流
-                    //方式2
-                    tableEnv.createTemporaryView("orderTable", stockTable);
-                    String sql = "select id,orderType,avg(price) as priceavg from orderTable where orderType='UDFOrder' group by id,orderType";
-                    final Table sqlTable = tableEnv.sqlQuery(sql);
-                    final DataStream<Tuple2<Boolean, Tuple3<String, String, Double>>> sqlTableDataStream = tableEnv.toRetractStream(sqlTable, TypeInformation.of(new TypeHint<Tuple3<String, String, Double>>() {
+                    Table table = tableEnv.fromDataStream(stockStream, $("id"), $("price"), $("orderType"), $("eventTime").rowtime());
+                    Table select = table.select($("id"), $("price"), $("eventTime"));
+                    final DataStream<Tuple2<Boolean, Tuple3<String, Double, Timestamp>>> sqlTableDataStream = tableEnv.toRetractStream(select, TypeInformation.of(new TypeHint<Tuple3<String, Double, Timestamp>>() {
                     }));
                     sqlTableDataStream.print("sqlTable");
                 });
         environment.execute();
-
     }
 }

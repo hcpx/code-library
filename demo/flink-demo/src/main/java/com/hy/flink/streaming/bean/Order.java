@@ -1,7 +1,10 @@
 package com.hy.flink.streaming.bean;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author hy
@@ -9,6 +12,8 @@ import lombok.Data;
  * @description
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order implements Serializable {
 
     private String id;

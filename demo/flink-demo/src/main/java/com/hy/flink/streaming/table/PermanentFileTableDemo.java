@@ -14,18 +14,18 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+import org.apache.flink.table.functions.ScalarFunction;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * @author hy
- * @date 2022/2/12 5:54 下午
- * @description
+ * @Author hy
+ * @Date 2022-02-13 17:17:56
+ * @Description
  */
-public class TableDemo {
-
+public class PermanentFileTableDemo {
     @SneakyThrows
     public static void main(String[] args) {
         final StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -48,27 +48,51 @@ public class TableDemo {
                                 final String[] split = value.split(",");
                                 return new Order(split[0], Double.parseDouble(split[1]), split[2], Long.parseLong(split[3]));
                             });
-                    final Table stockTable = tableEnv.fromDataStream(stockStream);
 
-                    //是否覆盖  toRetractStream 是，数据结果中前边boolean true未覆盖 false覆盖
-                    //         toAppendStream  否，仅叠加
-                    //方式1
-//                    final Table table = stockTable.groupBy($("id"), $("orderType"))
-//                            .select($("id"), $("orderType"), $("price").avg().as("priceavg"))
-//                            .where($("orderType").isEqual("UDFOrder"));
-//                    final DataStream<Tuple2<Boolean, Tuple3<String, String, Double>>> sqlDataStream = tableEnv.toRetractStream(table, TypeInformation.of(new TypeHint<Tuple3<String, String, Double>>() {
-//                    }));
-//                    sqlDataStream.print("sql");
-                    //转换成流
-                    //方式2
-                    tableEnv.createTemporaryView("orderTable", stockTable);
-                    String sql = "select id,orderType,avg(price) as priceavg from orderTable where orderType='UDFOrder' group by id,orderType";
-                    final Table sqlTable = tableEnv.sqlQuery(sql);
+                    //创建临时表 计算任务完成就回收
+//                    tableEnv.createTemporaryView("orderTable",stockStream);
+                    //创建永久表 除非显示删除否则一直存在
+                    String sql =
+                            "create table orderTable (" +
+                                    " id varchar, " +
+                                    " orderType varchar, " +
+                                    " price double, " +
+                                    " `timestamp` bigint " +
+                                    ") with (" +
+                                    " 'connector.type' = 'filesystem', " +
+                                    " 'format.type' = 'csv', " +
+                                    " 'connector.path' = 'D://flinkTable')";
+                    try {
+                        tableEnv.executeSql(sql);
+//                        String explain = tableEnv.explainSql(sql);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    final Table stockTable = tableEnv.fromDataStream(stockStream);
+                    stockTable.executeInsert("orderTable");
+                    //临时表和永久表同时存在那么只访问临时表，临时表不存在`default_catalog`.`default_database`的概念会报错
+                    final Table sqlTable = tableEnv.sqlQuery("select id,orderType,avg(price) as priceavg from orderTable where orderType='UDFOrder' group by id,orderType");
                     final DataStream<Tuple2<Boolean, Tuple3<String, String, Double>>> sqlTableDataStream = tableEnv.toRetractStream(sqlTable, TypeInformation.of(new TypeHint<Tuple3<String, String, Double>>() {
                     }));
                     sqlTableDataStream.print("sqlTable");
                 });
         environment.execute();
-
     }
+
+    //自定义函数
+    public static class HashCode extends ScalarFunction {
+        private int factor = 13;
+
+        public HashCode(int factor) {
+            this.factor = factor;
+        }
+
+        //自定义函数有好些都有这个问题，没有接口直接重写这个方法即可，没有原因
+        //多个参数转成一个结果，参数和返回值都不能为Object只能是固定的参数如：String Integer等等
+        public int eval(String s) {
+            return s.hashCode() * factor;
+        }
+    }
+
+
 }
