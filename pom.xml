@@ -5,7 +5,7 @@
     <groupId>com.code</groupId>
     <artifactId>hy</artifactId>
     <version>1.0.0</version>
-    <name>hy</name>
+    <name>code-library</name>
     <packaging>pom</packaging>
     <description>code library for Spring Boot</description>
 
@@ -23,7 +23,7 @@
         <module>redis-lazy</module>
         <module>response-result</module>
         <module>security</module>
-        <module>springboot-kafka-streams</module>
+        <module>demo/springboot-kafka-streams</module>
     </modules>
 
     <dependencyManagement>
