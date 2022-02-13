@@ -24,6 +24,7 @@
         <module>response-result</module>
         <module>security</module>
         <module>demo/springboot-kafka-streams</module>
+        <module>demo/flink-demo</module>
     </modules>
 
     <dependencyManagement>
