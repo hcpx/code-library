@@ -1,0 +1,12 @@
+windowPrint> FansGiftResult(hostId=hy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=128, windowsEnd=1645357800000, windowsEndStr=2022-02-20 19:50:00)
+windowPrint> FansGiftResult(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=278, windowsEnd=1645357800000, windowsEndStr=2022-02-20 19:50:00)
+
+windowPrint> FansGiftResult(hostId=wx, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=926, windowsEnd=1645358400000, windowsEndStr=2022-02-20 20:00:00)
+windowPrint> FansGiftResult(hostId=wy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=1569, windowsEnd=1645358400000, windowsEndStr=2022-02-20 20:00:00)
+windowPrint> FansGiftResult(hostId=wy, fansId=1164a637a4ff4305a41266e274960f19, giftCount=96, windowsEnd=1645358400000, windowsEndStr=2022-02-20 20:00:00)
+windowPrint> FansGiftResult(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=323, windowsEnd=1645358400000, windowsEndStr=2022-02-20 20:00:00)
+
+windowPrint> FansGiftResult(hostId=hy, fansId=1164a637a4ff4305a41266e274960f19, giftCount=537, windowsEnd=1645359000000, windowsEndStr=2022-02-20 20:10:00)
+windowPrint> FansGiftResult(hostId=wy, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=707, windowsEnd=1645359000000, windowsEndStr=2022-02-20 20:10:00)
+windowPrint> FansGiftResult(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=616, windowsEnd=1645359000000, windowsEndStr=2022-02-20 20:10:00)
+windowPrint> FansGiftResult(hostId=wx, fansId=4217b8378bcd4155866431252dafb56c, giftCount=207, windowsEnd=1645359000000, windowsEndStr=2022-02-20 20:10:00)

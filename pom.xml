@@ -172,6 +172,7 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+                <version>2.21.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -9,8 +9,13 @@ import com.hy.springboot.kafka.streams.lesson.common.abs.AbstractStreamProducer;
 import java.time.Duration;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Suppressed;
 import org.apache.kafka.streams.kstream.TimeWindows;
+import org.apache.kafka.streams.state.WindowStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,11 +30,15 @@ public class StreamTimeWindow extends AbstractStreamProducer<MessageEventArr> im
 
     @Bean
     public void streamUpper() {
+        Materialized<String, Long, WindowStore<Bytes, byte[]>> stringLongWindowStoreMaterialized = Materialized.<String, Long, WindowStore<Bytes, byte[]>>as("time-windowed-aggregated-temp-stream-store")
+                .withValueSerde(Serdes.Long()).withKeySerde(Serdes.String());
+
         KStream<String, MessageEventArr> stream = streamsBuilder.stream(getInputTopicName());
         stream.flatMapValues(MessageEventArr::getName)
                 .groupBy((key, word) -> word)
-                .windowedBy(TimeWindows.of(Duration.ofSeconds(5L)))
-                .count()
+                .windowedBy(TimeWindows.of(Duration.ofSeconds(5L)).grace(Duration.ofMillis(0)))
+                .count(stringLongWindowStoreMaterialized)
+                .suppress(Suppressed.untilWindowCloses(Suppressed.BufferConfig.unbounded()))
                 .toStream()
                 .peek((x, y) -> log.info("# nameStatistics # {} value:{}", windowedKeyToString(x), y));
     }

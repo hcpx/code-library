@@ -1,0 +1,21 @@
+2022-02-20T19:40:00 - 2022-02-20T19:50:00
+GiftRecord(hostId=hy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=128, giftTime=2022-02-20T19:46:29.828)
+GiftRecord(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=278, giftTime=2022-02-20T19:48:29.828)
+
+2022-02-20T19:50:00 - 2022-02-20T20:00:00
+GiftRecord(hostId=wy, fansId=1164a637a4ff4305a41266e274960f19, giftCount=96, giftTime=2022-02-20T19:50:29.828)
+GiftRecord(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=323, giftTime=2022-02-20T19:52:29.828)
+GiftRecord(hostId=wx, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=926, giftTime=2022-02-20T19:54:29.828)
+GiftRecord(hostId=wy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=632, giftTime=2022-02-20T19:56:29.828)
+GiftRecord(hostId=wy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=937, giftTime=2022-02-20T19:58:29.828)
+
+GiftRecord(hostId=hy, fansId=1164a637a4ff4305a41266e274960f19, giftCount=296, giftTime=2022-02-20T20:00:29.828)
+GiftRecord(hostId=hy, fansId=1164a637a4ff4305a41266e274960f19, giftCount=241, giftTime=2022-02-20T20:02:29.828)
+GiftRecord(hostId=wx, fansId=1164a637a4ff4305a41266e274960f19, giftCount=616, giftTime=2022-02-20T20:04:29.828)
+GiftRecord(hostId=wx, fansId=4217b8378bcd4155866431252dafb56c, giftCount=207, giftTime=2022-02-20T20:06:29.828)
+GiftRecord(hostId=wy, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=707, giftTime=2022-02-20T20:08:29.828)
+
+GiftRecord(hostId=wx, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=838, giftTime=2022-02-20T20:10:29.828)
+GiftRecord(hostId=wx, fansId=4217b8378bcd4155866431252dafb56c, giftCount=161, giftTime=2022-02-20T20:12:29.828)
+GiftRecord(hostId=hy, fansId=4217b8378bcd4155866431252dafb56c, giftCount=831, giftTime=2022-02-20T20:14:29.828)
+GiftRecord(hostId=wx, fansId=d5eba9637f7d4712a0ee78373908e807, giftCount=900, giftTime=2022-02-20T20:16:29.828)

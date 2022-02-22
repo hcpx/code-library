@@ -17,8 +17,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 //@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter10"})
 //@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter11"})
 //@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter12"})
-//@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter13"})
-@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter14"})
+@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter13"})
+//@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter14"})
 //@SpringBootApplication(scanBasePackages = {"com.hy.springboot.kafka.streams.lesson.common","com.hy.springboot.kafka.streams.lesson.chapter15"})
 //@SpringBootApplication
 @EnableScheduling

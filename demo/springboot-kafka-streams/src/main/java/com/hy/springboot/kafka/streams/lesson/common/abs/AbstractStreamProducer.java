@@ -1,6 +1,5 @@
 package com.hy.springboot.kafka.streams.lesson.common.abs;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hy.springboot.kafka.streams.lesson.common.StreamProducer;
@@ -9,7 +8,6 @@ import java.util.Optional;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.Windowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;

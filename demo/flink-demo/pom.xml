@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>FlinkDemo</artifactId>
+  <artifactId>flink-demo</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
@@ -17,6 +17,7 @@
     <log4j.version>1.2.17</log4j.version>
     <lombok.version>1.18.22</lombok.version>
     <mysql.version>8.0.22</mysql.version>
+    <hutool.version>5.7.21</hutool.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
@@ -45,7 +46,7 @@
       <artifactId>flink-table-planner-blink_2.12</artifactId>
       <version>${flink.version}</version>
       <!--    flink 服务器的lib下如果有这些包那么用provided即可-->
-<!--      <scope>provided</scope>-->
+      <!--      <scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.apache.flink</groupId>
@@ -58,6 +59,19 @@
       <artifactId>flink-connector-kafka_2.12</artifactId>
       <version>${flink.version}</version>
     </dependency>
+    <!--    es-->
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-connector-elasticsearch6_2.12</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+    <!--    rocksdb-->
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-statebackend-rocksdb_2.12</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+
     <!--    mysql-->
     <dependency>
       <groupId>mysql</groupId>
@@ -85,6 +99,12 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+    </dependency>
+    <!--    hutool-->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${hutool.version}</version>
     </dependency>
   </dependencies>
 

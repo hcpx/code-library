@@ -1,0 +1,61 @@
+-- 贡献日榜索引
+PUT daygiftanalyze
+{
+  "mappings":{
+    "properties": {
+    "windowEndStr":{
+            "type": "text"
+          },
+      "windowEnd":{
+        "type": "long"
+      },
+      "hostId": {
+        "type": "keyword"
+      },
+      "fansId": {
+        "type": "keyword"
+      },
+      "giftCount":{
+        "type": "long"
+      }
+    }
+  }
+}
+
+GET daygiftanalyze/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"range": {
+          "windowEnd": {
+            "gte": 1631635200000,
+            "lte": 1631721600000
+          }
+        }},
+        {"match": {
+          "hostId": "1001"
+        }}
+      ]
+    }
+  },
+  "aggs": {
+    "groupByFans": {
+      "terms": {
+        "field": "fansId",
+        "size": 3,
+        "order": {
+          "giftCount": "desc"
+        }
+      },
+      "aggs": {
+        "giftCount": {
+          "sum": {
+            "field": "giftCount"
+          }
+        }
+      }
+    }
+  }
+}
+
